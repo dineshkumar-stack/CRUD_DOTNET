@@ -1,0 +1,52 @@
+﻿@model WebFE.Models.CompanyViewModel
+
+@{
+    ViewData["Title"] = "Edit Company Details";
+}
+
+<h1>Edit</h1>
+
+<h4>@ViewData["Title"]</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+@*             <div class="form-group">
+                <label asp-for="id" class="control-label"></label>
+                <input asp-for="id" class="form-control" />
+                <span asp-validation-for="id" class="text-danger"></span>
+            </div> *@
+            <div class="form-group">
+                <label asp-for="companyName" class="control-label"></label>
+                <input asp-for="companyName" class="form-control" />
+                <span asp-validation-for="companyName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="formType" class="control-label"></label>
+                <input asp-for="formType" class="form-control" />
+                <span asp-validation-for="formType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="versionNumber" class="control-label"></label>
+                <input asp-for="versionNumber" class="form-control" />
+                <span asp-validation-for="versionNumber" class="text-danger"></span>
+            </div>
+@*             <div class="form-group">
+                <label asp-for="created_at" class="control-label"></label>
+                <input asp-for="created_at" class="form-control" />
+                <span asp-validation-for="created_at" class="text-danger"></span>
+            </div> *@
+            <div class="form-group mt-1">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <a class="btn btn-outline-info" type="button" asp-action="Index">Back to List</a>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34221.43
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebBE", "WebBE\WebBE.csproj", "{912B5492-8144-4E84-9C76-47BEA8EE4D6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebFE", "WebFE\WebFE.csproj", "{037AD2D7-428E-46F1-A863-2F3BB00DF2E8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{912B5492-8144-4E84-9C76-47BEA8EE4D6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{912B5492-8144-4E84-9C76-47BEA8EE4D6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{912B5492-8144-4E84-9C76-47BEA8EE4D6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{912B5492-8144-4E84-9C76-47BEA8EE4D6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{037AD2D7-428E-46F1-A863-2F3BB00DF2E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{037AD2D7-428E-46F1-A863-2F3BB00DF2E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{037AD2D7-428E-46F1-A863-2F3BB00DF2E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{037AD2D7-428E-46F1-A863-2F3BB00DF2E8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {234760FE-0B2D-494C-957A-5EDF432A61E1}
+	EndGlobalSection
+EndGlobal
