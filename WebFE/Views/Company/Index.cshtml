@@ -3,18 +3,18 @@
 @{
     ViewData["Title"] = "CompanyList";
 }
-
+<link href="~/css/site.css" rel="stylesheet" />
 <h1>Company List</h1>
 
 <p>
     <a class="btn btn-outline-dark" type="button" asp-action="Create">Add Company</a>
 </p>
-<table class="table">
+<table id="myTable" class="table display" style="width:100%">
     <thead>
         <tr>
-            <th>
+@*             <th>
                 @Html.DisplayNameFor(model => model.id)
-            </th>
+            </th> *@
             <th>
                 @Html.DisplayNameFor(model => model.companyName)
             </th>
@@ -32,10 +32,9 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.id)
-            </td>
+
+            <tr class="companyTable">
+
             <td>
                 @Html.DisplayFor(modelItem => item.companyName)
             </td>
@@ -54,5 +53,7 @@
             </td>
         </tr>
 }
+
+
     </tbody>
 </table>
