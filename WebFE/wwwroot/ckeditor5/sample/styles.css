@@ -10,7 +10,7 @@
 	--ck-sample-color-blue: #1a9aef;
 	--ck-sample-container-width: 1285px;
 	--ck-sample-sidebar-width: 350px;
-	--ck-sample-editor-min-height: 400px;
+	--ck-sample-editor-min-height: 700px;
 	--ck-sample-editor-z-index: 10;
 }
 
@@ -364,7 +364,7 @@ body[data-revision-history='true'] .ck.ck-pagination-view-line::after {
 }
 
 /* --------- SAMPLE GENERIC STYLES (not related to CKEditor) ------------------------------------------------------- */
-body, html {
+/*body, html {
 	padding: 0;
 	margin: 0;
 
@@ -381,12 +381,12 @@ body {
 body * {
 	box-sizing: border-box;
 }
-
+	s
 a {
 	color: #38A5EE;
-}
+}*/
 
-header .centered {
+/*header .centered {
 	display: flex;
 	flex-flow: row nowrap;
 	justify-content: space-between;
@@ -400,9 +400,9 @@ header h1 a {
 	align-items: center;
 	color: #2D3A4A;
 	text-decoration: none;
-}
+}*/
 
-header h1 img {
+/*header h1 img {
 	display: block;
 	height: 64px;
 }
@@ -429,7 +429,7 @@ header nav ul li a {
 
 header nav ul li a:hover {
 	text-decoration: underline;
-}
+}*/
 
 main .message {
 	padding: 0 0 var(--ck-sample-base-spacing);
@@ -483,12 +483,12 @@ main .message h2 {
 	font-size: .8rem;
 }
 
-footer {
+/*footer {
 	margin: calc(2*var(--ck-sample-base-spacing)) var(--ck-sample-base-spacing);
 	font-size: .8em;
 	text-align: center;
 	color: rgba(0,0,0,.4);
-}
+}*/
 
 /* --------- RWD --------------------------------------------------------------------------------------------------- */
 @media screen and ( max-width: 800px ) {

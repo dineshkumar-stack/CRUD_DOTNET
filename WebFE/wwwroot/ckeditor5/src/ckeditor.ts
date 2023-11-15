@@ -4,9 +4,9 @@
  */
 
 import { ClassicEditor } from '@ckeditor/ckeditor5-editor-classic';
-
 import { Alignment } from '@ckeditor/ckeditor5-alignment';
 import { Autoformat } from '@ckeditor/ckeditor5-autoformat';
+import { Mention } from '@ckeditor/ckeditor5-mention';
 import { Autosave } from '@ckeditor/ckeditor5-autosave';
 import { Bold, Italic, Underline } from '@ckeditor/ckeditor5-basic-styles';
 import { BlockQuote } from '@ckeditor/ckeditor5-block-quote';
@@ -50,6 +50,7 @@ import { TextTransformation } from '@ckeditor/ckeditor5-typing';
 class Editor extends ClassicEditor {
 	public static override builtinPlugins = [
 		Alignment,
+		Mention,
 		AutoImage,
 		Autoformat,
 		Autosave,
@@ -143,7 +144,6 @@ class Editor extends ClassicEditor {
 				'tableCellProperties'
 			]
 		},
-
 	};
 }
 

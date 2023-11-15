@@ -6,7 +6,6 @@ namespace ckeditor_main.Controllers
     {
         public IActionResult Editor()
         {
-
             return View();
         }
     }
