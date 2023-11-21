@@ -9,15 +9,17 @@
 <body data-editor="DecoupledEditor" data-collaboration="false" data-revision-history="false">
 	<div class="centered">
 		<div class="row">
-		<p><input id="save" class="btn btn-dark" type="submit" value="Download HTML"></p>
+			<p><input id="save" class="btn btn-dark btn-sm" type="submit" value="Download HTML">
+		<input id="get-data" class="btn btn-dark btn-sm" type="submit" value="Save Comments"></p>
 			<div class="document-editor__toolbar"></div>
 		</div>
 		<div class="container">
 		<div class="row row-editor">
 				<div class="editor"></div>
+
 				<div class="tabs-wrapper">
 					<div class="tabs">
-						<button class="tabs__item active" data-target="sidebar">Sidebar</button>
+						<button class="tabs__item active" data-target="sidebar">Comments</button>
 						<button class="tabs__item" data-target="archive">Comments archive</button>
 					</div>
 					<div class="sidebar active" id="sidebar"></div>
