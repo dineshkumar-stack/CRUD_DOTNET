@@ -17,6 +17,7 @@ import { Heading } from '@ckeditor/ckeditor5-heading';
 import { SourceEditing } from '@ckeditor/ckeditor5-source-editing';
 import { Markdown } from '@ckeditor/ckeditor5-markdown-gfm';
 import { FullPage } from '@ckeditor/ckeditor5-html-support';
+import { ExportPdf } from '@ckeditor/ckeditor5-export-pdf';
 import { Image, ImageCaption, ImageResize, ImageStyle, ImageToolbar, ImageUpload, PictureEditing } from '@ckeditor/ckeditor5-image';
 import { Indent, IndentBlock } from '@ckeditor/ckeditor5-indent';
 import { Link } from '@ckeditor/ckeditor5-link';
@@ -27,7 +28,7 @@ import { PasteFromOffice } from '@ckeditor/ckeditor5-paste-from-office';
 import { Table, TableCellProperties, TableProperties, TableToolbar } from '@ckeditor/ckeditor5-table';
 import { TextTransformation } from '@ckeditor/ckeditor5-typing';
 declare class Editor extends DecoupledEditor {
-    static builtinPlugins: (typeof Autoformat | typeof Bold | typeof Italic | typeof List | typeof Markdown | typeof FullPage | typeof SourceEditing | typeof Alignment | typeof Template | typeof BlockQuote | typeof CKBox | typeof CloudServices | typeof Comments | typeof Essentials | typeof FontBackgroundColor | typeof FontColor | typeof FontFamily | typeof FontSize | typeof Heading | typeof Image | typeof ImageCaption | typeof ImageResize | typeof ImageStyle | typeof ImageToolbar | typeof ImageUpload | typeof Indent | typeof IndentBlock | typeof Link | typeof ListProperties | typeof MediaEmbed | typeof Paragraph | typeof PasteFromOffice | typeof PictureEditing | typeof Strikethrough | typeof Table | typeof TableCellProperties | typeof TableProperties | typeof TableToolbar | typeof TextTransformation | typeof TodoList | typeof Underline)[];
+    static builtinPlugins: (typeof Autoformat | typeof Bold | typeof Italic | typeof List | typeof ExportPdf | typeof Markdown | typeof FullPage | typeof SourceEditing | typeof Alignment | typeof Template | typeof BlockQuote | typeof CKBox | typeof CloudServices | typeof Comments | typeof Essentials | typeof FontBackgroundColor | typeof FontColor | typeof FontFamily | typeof FontSize | typeof Heading | typeof Image | typeof ImageCaption | typeof ImageResize | typeof ImageStyle | typeof ImageToolbar | typeof ImageUpload | typeof Indent | typeof IndentBlock | typeof Link | typeof ListProperties | typeof MediaEmbed | typeof Paragraph | typeof PasteFromOffice | typeof PictureEditing | typeof Strikethrough | typeof Table | typeof TableCellProperties | typeof TableProperties | typeof TableToolbar | typeof TextTransformation | typeof TodoList | typeof Underline)[];
     static defaultConfig: {
         toolbar: {
             items: string[];

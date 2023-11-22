@@ -1,47 +1,4 @@
-﻿const appData = {
-    // Users data.
-    users: [
-        {
-            id: 'user-1',
-            name: 'Dinesh'
-        },
-        {
-            id: 'user-2',
-            name: 'Zee Croce'
-        }
-    ],
-
-    // The ID of the current user.
-    userId: 'user-1',
-
-    // Comment threads data.
-    commentThreads: [
-
-        //{
-        //    "threadId": "e155a9cabff70ba113ef254a5c24bbb55",
-        //    "comments": [
-        //        {
-        //            "commentId": "ee65cf4e2185c15e277e33dbba536a80b",
-        //            "content": "<p>Done</p>",
-        //            "createdAt": "2023-11-21T08:57:46.844Z",
-        //            "authorId": "user-1",
-        //            "attributes": {}
-        //        }
-        //    ],
-        //    "resolvedAt": null,
-        //    "resolvedBy": null,
-        //    "context": {
-        //        "type": "text",
-        //        "value": "Handheld "
-        //    },
-        //    "attributes": {}
-        //}
-     ]
-      
-};
-
-
-
+﻿
 DecoupledEditor
     .create(document.querySelector('.editor'), {
 
@@ -51,9 +8,35 @@ DecoupledEditor
 			},
 			sidebar: {
 				container: document.querySelector( '.sidebar' )
-			},
+        },
 
-			
+
+        exportPdf: {
+            tokenUrl: 'https://101826.cke-cs.com/token/dev/ZrEch30xxIHOGNFYiRUJWJMfz6M11aL9gZ7U?user.name=Dinesh&limit=10',
+            converterUrl: 'https://pdf-converter.cke-cs.com/v1/convert',
+            stylesheets: ['EDITOR_STYLES'],
+
+            fileName: 'my-file.pdf',
+            converterOptions: {
+                format: 'A4',
+                margin_top: '0mm',
+                margin_bottom: '0mm',
+                margin_right: '0mm',
+                margin_left: '0mm',
+                page_orientation: 'portrait',
+                header_html: undefined,
+                footer_html: undefined,
+                header_and_footer_css: undefined,
+                wait_for_network: true,
+                wait_time: 0
+            },
+            dataCallback: (editor) => {
+                return `
+            ${editor.getData()}
+            <div class="watermark">Draft document</div>
+        `;
+            },
+        },
 
 			extraPlugins: [
 				// Learn more about users at https://ckeditor.com/docs/ckeditor5/latest/features/collaboration/users.html.
@@ -976,6 +959,56 @@ function handleSampleError( error ) {
 	console.error( message );
 	console.error( error );
 }
+
+// Dynamic file name.
+const exportPdfConfig = {
+    fileName: () => {
+        const articleTitle = document.querySelector('#title');
+        return `${articleTitle.value}.pdf`;
+    }
+}
+
+
+const appData = {
+    users: [
+        {
+            id: 'user-1',
+            name: 'Dinesh'
+        },
+        {
+            id: 'user-2',
+            name: 'Zee Croce'
+        }
+    ],
+
+    userId: 'user-1',
+
+    // Comment threads data.
+    commentThreads: [
+
+        //{
+        //    "threadId": "e155a9cabff70ba113ef254a5c24bbb55",
+        //    "comments": [
+        //        {
+        //            "commentId": "ee65cf4e2185c15e277e33dbba536a80b",
+        //            "content": "<p>Done</p>",
+        //            "createdAt": "2023-11-21T08:57:46.844Z",
+        //            "authorId": "user-1",
+        //            "attributes": {}
+        //        }
+        //    ],
+        //    "resolvedAt": null,
+        //    "resolvedBy": null,
+        //    "context": {
+        //        "type": "text",
+        //        "value": "Handheld "
+        //    },
+        //    "attributes": {}
+        //}
+    ]
+
+};
+
 
 
 

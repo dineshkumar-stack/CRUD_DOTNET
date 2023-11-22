@@ -19,6 +19,8 @@ import { Heading } from '@ckeditor/ckeditor5-heading';
 import { SourceEditing } from '@ckeditor/ckeditor5-source-editing';
 import { Markdown } from '@ckeditor/ckeditor5-markdown-gfm';
 import { FullPage } from '@ckeditor/ckeditor5-html-support';
+import { ExportPdf } from '@ckeditor/ckeditor5-export-pdf';
+
 
 import {
 	Image,
@@ -49,6 +51,7 @@ import { TextTransformation } from '@ckeditor/ckeditor5-typing';
 class Editor extends DecoupledEditor {
 	public static override builtinPlugins = [
 		Bold,
+		ExportPdf,
 		Markdown,
 		FullPage,
 		SourceEditing,
@@ -95,6 +98,7 @@ class Editor extends DecoupledEditor {
 	public static override defaultConfig = {
 		toolbar: {
 			items: [
+				'exportPdf',
 				'sourceEditing',
 				'heading',
 				'|',
