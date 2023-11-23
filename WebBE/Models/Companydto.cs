@@ -5,7 +5,6 @@ namespace WebBE.Models
 {
     public class Companydto
     {
-
         [Required]
         public string companyName { get; set; } = "";
         [Required]

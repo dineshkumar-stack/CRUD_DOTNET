@@ -1,4 +1,6 @@
-﻿@model IEnumerable<WebFE.Models.CompanyViewModel>
+﻿
+@model IEnumerable<WebFE.Models.CompanyViewModel>
+
 
 @{
     ViewData["Title"] = "CompanyList";
@@ -43,8 +45,9 @@
             </td>
             <td >
                 @Html.ActionLink("Edit", "Edit", new { id=item.id} ) |
-                @Html.ActionLink("Delete", "Delete",  new { id=item.id })
-            </td>
+                @Html.ActionLink("Delete", "Delete",  new { id=item.id }) |
+                    @Html.ActionLink("Editor", "EditorNew",  "Ckeditor", new { id=item.id })
+                </td>
         </tr>
 }
     </tbody>

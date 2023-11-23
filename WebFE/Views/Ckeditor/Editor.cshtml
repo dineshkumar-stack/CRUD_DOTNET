@@ -1,40 +1,34 @@
-﻿<!DOCTYPE html>
-<html lang="en" dir="ltr">
+﻿@model CkeditorViewModel
+
+@{
+    ViewBag.Title = "CKEditor Example";
+}
+
+<!DOCTYPE html>
+<html>
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="~/ckeditor5/src/styles.css" rel="stylesheet" />
+    <title>@ViewBag.Title</title>
+
+    <!-- Include CKEditor files -->
+    <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+
+    <!-- Optional: Include a CKEditor skin (adjust the path accordingly) -->
+    <link rel="stylesheet" href="https://cdn.ckeditor.com/4.16.2/standard-all/skins/moono-lisa/editor_gecko.css">
 </head>
+<body>
+    <h1>@ViewBag.Title</h1>
 
-<body data-editor="DecoupledEditor" data-collaboration="false" data-revision-history="false">
-	<div class="centered">
-		<div class="row">
-			<p><input id="save" class="btn btn-dark btn-sm" type="submit" value="Download HTML">
-		<input id="get-data" class="btn btn-dark btn-sm" type="submit" value="Save Comments"></p>
-			<div class="document-editor__toolbar"></div>
-		</div>
-		<div class="container">
-		<div class="row row-editor">
-				<div class="editor"></div>
+    <!-- Create a div to hold CKEditor -->
+    <div class="editor"></div>
 
-				<div class="tabs-wrapper">
-					<div class="tabs">
-						<button class="tabs__item active" data-target="sidebar">Comments</button>
-						<button class="tabs__item" data-target="archive">Comments Archive</button>
-					</div>
-					<div class="sidebar active" id="sidebar"></div>
-					<div class="sidebar sidebar--archive" id="archive">
-						<div class="comments-archive">
-							<div class="comments-archive__list"></div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<script src="https://cdn.ckbox.io/CKBox/2.2.0/ckbox.js"></script>
-    <script src="~/ckeditor5/build/ckeditor.js"></script>
+    <script>
+        function myFunction() {
+            timeout = setTimeout(alertFunc, 3000);
+        }
+        function alertFunc() {
+            document.querySelector('.editor').innerHTML = '@Html.Raw(Model.content)';
+        }
 
-    <script src="~/ckeditor5/src/script.js"></script>
+    </script>
 </body>
 </html>

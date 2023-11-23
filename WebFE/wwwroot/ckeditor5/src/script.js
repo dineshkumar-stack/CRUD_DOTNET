@@ -33,8 +33,8 @@ DecoupledEditor
             dataCallback: (editor) => {
                 return `
             ${editor.getData()}
-            <div class="watermark">Draft document</div>
-        `;
+            <div class="watermark">- EDGAR AGENTS</div>
+`;
             },
         },
 
@@ -217,6 +217,7 @@ DecoupledEditor
                                             {
                                                 "commentId": "ef7867546d91b083a35e4e166a5ac4a0e",
                                                 "authorId": "user-1",
+                                                "createdAt": "2023-11-21T09:18:41.482Z",
                                                 "content": "<p>1</p>",
                                                 "attributes": {}
                                             },
@@ -224,7 +225,16 @@ DecoupledEditor
                                             {
                                                 "commentId": "e053af13b42e2c578c350a32235b8f440",
                                                 "authorId": "user-1",
+                                                "createdAt": "2023-11-21T09:18:41.482Z",
                                                 "content": "<p>2</p>",
+                                                "attributes": {}
+                                            },
+
+                                            {
+                                                "commentId": "e053af13b42e2c578c350a32235b8f441",
+                                                "authorId": "user-1",
+                                                "createdAt": "2023-11-23T09:18:41.482Z",
+                                                "content": "<p>3</p>",
                                                 "attributes": {}
                                             }
                                             
@@ -236,7 +246,9 @@ DecoupledEditor
                                             "value": "UNITED "
                                         },
                                     "attributes": {},
-                                });
+                                }
+                                
+                                );
                             },
 
                             updateCommentThread(data) {
@@ -898,18 +910,14 @@ DecoupledEditor
             },
 
 
-
 		})
 		.then( editor => {
 			window.editor = editor;
-
 			handleSaveButton(editor)
 			document.querySelector( '.document-editor__toolbar' ).appendChild( editor.ui.view.toolbar.element );
 			document.querySelector('.ck-toolbar').classList.add('ck-reset_all');
 
-
 			const commentsRepository = editor.plugins.get('CommentsRepository');
-
 			document.querySelector('#get-data').addEventListener('click', () => {
 				const editorData = editor.data.get();
 				const commentThreadsData = commentsRepository.getCommentThreads({
@@ -921,8 +929,6 @@ DecoupledEditor
 				console.log(commentThreadsData);
 			});
 		})
-
-
 
 		.catch( handleSampleError );
 
@@ -968,7 +974,6 @@ const exportPdfConfig = {
     }
 }
 
-
 const appData = {
     users: [
         {
@@ -986,28 +991,27 @@ const appData = {
     // Comment threads data.
     commentThreads: [
 
-        //{
-        //    "threadId": "e155a9cabff70ba113ef254a5c24bbb55",
-        //    "comments": [
-        //        {
-        //            "commentId": "ee65cf4e2185c15e277e33dbba536a80b",
-        //            "content": "<p>Done</p>",
-        //            "createdAt": "2023-11-21T08:57:46.844Z",
-        //            "authorId": "user-1",
-        //            "attributes": {}
-        //        }
-        //    ],
-        //    "resolvedAt": null,
-        //    "resolvedBy": null,
-        //    "context": {
-        //        "type": "text",
-        //        "value": "Handheld "
-        //    },
-        //    "attributes": {}
-        //}
     ]
 
 };
+
+// script.js
+document.addEventListener('DOMContentLoaded', function () {
+    fetch('https://localhost:7087/api/CompanyList/GetCompany')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Product details:', data);
+        })
+        .catch(error => {
+            console.error('Error getting product details:', error);
+        });
+});
+
 
 
 
