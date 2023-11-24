@@ -14,6 +14,31 @@ namespace WebBE.Controllers
 			connectionString = configuration["ConnectionStrings:CompanyDB"] ?? "";
 		}
 
+		[HttpPost]
+		public IActionResult CreateContent(CKEditor editorData)
+		{
+			try
+			{
+				using (var connection = new SqlConnection(connectionString))
+				{
+					connection.Open();
+					string sql = "INSERT INTO dbo.ckeditor(content) " +
+						"VALUES (@content)";
+					using (var command = new SqlCommand(sql, connection))
+					{
+						command.Parameters.AddWithValue("@content", editorData.content);
+						command.ExecuteNonQuery();
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				ModelState.AddModelError("CKEditor", "error");
+				return BadRequest(ModelState);
+			}
+			return Ok();
+		}
+
 		[HttpGet]
 		public IActionResult Get()
 		{
@@ -91,6 +116,37 @@ namespace WebBE.Controllers
 			return Ok(CKE);
 		}
 
+		[HttpPut("{id}")]
+		public async Task<IActionResult>PutContentbyId(int id, [FromBody] CKEditor cKEditor)
+		{
+			try
+			{
+				using (var connection = new SqlConnection(connectionString))
+				{
+					await connection.OpenAsync();
+
+					string sql = "UPDATE dbo.ckeditor " +
+						"SET content = @content WHERE id = @id";
+					using (var command = new SqlCommand(sql, connection))
+					{
+						command.Parameters.AddWithValue("@content", cKEditor.content);
+						command.Parameters.AddWithValue("@id", id);
+						var rowsAffected = await command.ExecuteNonQueryAsync();
+
+						if (rowsAffected > 0)
+						{
+							return Ok(new { Message = "Content updated successfully" });
+						}
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				ModelState.AddModelError("CKEditor", "error");
+				return BadRequest(ModelState);
+			}
+			return Ok();
+		}
 
 	}
 }

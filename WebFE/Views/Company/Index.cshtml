@@ -6,9 +6,8 @@
     ViewData["Title"] = "CompanyList";
 }
 
-<h1>Company List</h1>
 <p>
-    <a class="btn btn-outline-dark" type="button" asp-action="Create">Add Company</a>
+    <a class="btn btn-sm btn-dark" type="button" asp-action="Create">Add Company</a>
 </p>
 <table id="myTable" class="table display">
     <thead>
@@ -43,11 +42,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.created_at)
             </td>
-            <td >
+            <td>                 
                 @Html.ActionLink("Edit", "Edit", new { id=item.id} ) |
                 @Html.ActionLink("Delete", "Delete",  new { id=item.id }) |
-                    @Html.ActionLink("Editor", "EditorNew",  "Ckeditor", new { id=item.id })
-                </td>
+                @Html.ActionLink("Editor", "EditorNew",  "Ckeditor", new { id=item.id })
+             </td>
         </tr>
 }
     </tbody>

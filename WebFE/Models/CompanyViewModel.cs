@@ -12,6 +12,7 @@ namespace WebFE.Models
         [Required]
         [DisplayName("Form Type")]
         public string formType { get; set; } = "";
+
         [Required]
         [DisplayName("Version")]
         public int versionNumber { get; set; }

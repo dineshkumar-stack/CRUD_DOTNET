@@ -15,16 +15,17 @@
 <body data-editor="DecoupledEditor" data-collaboration="false" data-revision-history="false">
 	<div class="centered">
 		<div class="row">
-			<p>
-				<input id="save" class="btn btn-dark btn-sm" type="submit" value="Download HTML">
-				<input id="get-data" class="btn btn-dark btn-sm" type="submit" value="Save Comments">
+			<p> 
+				<input id="save" class="btn btn-dark btn-sm" type="submit"  value="Download HTML">
+				<input id="get-data"  class="btn btn-dark btn-sm" type="submit" onclick="saveContent()" value="Save">
+
+				<a class="btn btn-outline-dark text-decoration-none btn-sm" asp-area="" asp-controller="Company" asp-action="">Back</a>
 			</p>
 			<div class="document-editor__toolbar"></div>
 		</div>
 		<div class="container">
 			<div class="row row-editor">
-
-				<div class="editor">
+				<div id ="newEditor" class="editor">
 					@Html.Raw(Model.content)
 				</div>
 
@@ -49,7 +50,78 @@
 	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 	<script src="~/ckeditor5/src/script.js"></script>
+	<script>
+		// Function to save content
+		function saveContent() {
+			var updatedContent = {
+				id: @Model.id, // Pass the ID from the model
+				content: document.getElementById('newEditor').innerHTML
+			};
+			console.log("updatedContent", updatedContent);
 
+			API = `https://localhost:7087/api/Ckeditor/PutContentbyId/${updatedContent.id}`
+			console.log("API", API);
+
+			// Make a PUT request to update the content
+			fetch(API, {
+				method: 'PUT',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(updatedContent)
+			})
+				.then(response => {
+					if (!response.ok) {
+						throw new Error('Network response was not ok');
+					}
+					return response.json();
+				})
+				.then(data => {
+					console.log('Content successfully:', data);
+					alert("Done")
+				})
+				.catch(error => {
+					console.error('Error updating content:', error);
+				});
+		}
+		const AddCKNew = document.getElementById('AddContent');
+
+		AddCKNew.addEventListener('click', function () {
+
+			var NewContent = {
+				content: "New"
+			};
+			console.log("NewContent", NewContent);
+
+			API = `https://localhost:7087/api/Ckeditor/CreateContent`
+			console.log("API", API);
+
+			// Make a PUT request to update the content
+			fetch(API, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(NewContent)
+			})
+				.then(response => {
+					if (!response.ok) {
+						throw new Error('Network response was not ok');
+					}
+					return response.json();
+				})
+				.then(data => {
+					console.log('Content Added:', data);
+					alert("Done")
+				})
+				.catch(error => {
+					console.error('Error updating content:', error);
+				});
+		})
+				
+
+
+	</script>
 
 </body>
 </html>

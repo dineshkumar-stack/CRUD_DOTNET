@@ -10,7 +10,6 @@ DecoupledEditor
 				container: document.querySelector( '.sidebar' )
         },
 
-
         exportPdf: {
             tokenUrl: 'https://101826.cke-cs.com/token/dev/ZrEch30xxIHOGNFYiRUJWJMfz6M11aL9gZ7U?user.name=Dinesh&limit=10',
             converterUrl: 'https://pdf-converter.cke-cs.com/v1/convert',
@@ -911,7 +910,8 @@ DecoupledEditor
 
 
 		})
-		.then( editor => {
+    .then(editor => {
+
 			window.editor = editor;
 			handleSaveButton(editor)
 			document.querySelector( '.document-editor__toolbar' ).appendChild( editor.ui.view.toolbar.element );
@@ -1011,6 +1011,11 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('Error getting product details:', error);
         });
 });
+
+
+function myFunction() {
+    alert("Page is loaded");
+}
 
 
 
