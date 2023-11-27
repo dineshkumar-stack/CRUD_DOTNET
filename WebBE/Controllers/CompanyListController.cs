@@ -24,7 +24,9 @@ namespace WebApp.Controllers
                 {
                     connection.Open();
                     string sql = "INSERT INTO dbo.CompanyList(companyName,formType,versionNumber) " +
-                        "VALUES (@companyName, @formType , @versionNumber)";
+                        "VALUES (@companyName, @formType , @versionNumber)" +
+                        "INSERT INTO  dbo.ckeditor(content) VALUES  ('');"
+                        ;
                     using (var command = new SqlCommand(sql, connection))
                     {
                         command.Parameters.AddWithValue("@companyName", companydto.companyName);
@@ -163,11 +165,12 @@ namespace WebApp.Controllers
                 {
                     connection.Open();
 
-                    string sql = "DELETE FROM dbo.CompanyList WHERE id=@id";
+                    string sql = "DELETE FROM dbo.ckeditor WHERE id=@id; DELETE FROM dbo.companyList WHERE id=@id;"
+						;
                     using (var command = new SqlCommand(sql,connection))
                     {
                         command.Parameters.AddWithValue("@id", id);
-                        command.ExecuteNonQuery ();
+						command.ExecuteNonQuery ();
                     }
                 }
             }

@@ -1,4 +1,90 @@
 ﻿
+const appData = {
+    users: [
+        {
+            id: 'user-1',
+            name: 'Dinesh'
+        },
+        {
+            id: 'user-2',
+            name: 'Zee Croce'
+        }
+    ],
+
+    userId: 'user-1',
+
+    // Comment threads data.
+    commentThreads: [
+        {
+            "threadId": "e08626919e845adfc0be90760437253bd",
+            "comments": [
+                {
+                    "commentId": "e783e5dbc56cec36cd3971039d04ff3bd",
+                    "content": "<p>Main</p>",
+                    "createdAt": "2023-11-21T09:18:41.482Z",
+                    "authorId": "user-1",
+                    "attributes": {}
+                },
+
+                {
+                    "commentId": "ef7867546d91b083a35e4e166a5ac4a0e",
+                    "authorId": "user-1",
+                    "createdAt": "2023-11-21T09:18:41.482Z",
+                    "content": "<p>1</p>",
+                    "attributes": {}
+                },
+
+                {
+                    "commentId": "e053af13b42e2c578c350a32235b8f440",
+                    "authorId": "user-1",
+                    "createdAt": "2023-11-21T09:18:41.482Z",
+                    "content": "<p>2</p>",
+                    "attributes": {}
+                },
+
+                {
+                    "commentId": "e053af13b42e2c578c350a32235b8f441",
+                    "authorId": "user-1",
+                    "createdAt": "2023-11-23T09:18:41.482Z",
+                    "content": "<p>3</p>",
+                    "attributes": {}
+                }
+
+            ],
+            "resolvedAt": null,
+            "resolvedBy": null,
+            "context": {
+                "type": "text",
+                "value": "UNITED "
+            },
+            "attributes": {},
+        },
+        {
+            "threadId": "ea9c98c9319d4247351706bc8556fc411",
+            "comments": [
+                {
+                    "commentId": "e13d29d49f9cb16feee38c5c0996f5cf2",
+                    "content": "<p>121</p>",
+                    "createdAt": "2023-11-24T11:10:53.021Z",
+                    "authorId": "user-1",
+                    "attributes": {}
+                }
+            ],
+            "resolvedAt": null,
+            "resolvedBy": null,
+            "context": {
+                "type": "text",
+                "value": "UNITED "
+            },
+            "attributes": {}
+        }
+
+
+    ]
+
+};
+
+
 DecoupledEditor
     .create(document.querySelector('.editor'), {
 
@@ -65,29 +151,33 @@ DecoupledEditor
 				//	}
 				//},
 
-				class CommentsIntegration {
-					constructor(editor) {
-						this.editor = editor;
-					}
+                class CommentsIntegration {
+                    constructor(editor) {
+                        this.editor = editor;
+                    }
 
-					static get requires() {
-						return ['CommentsRepository'];
-					}
+                    static get requires() {
+                        return ['CommentsRepository'];
+                    }
 
-					init() {
-						const usersPlugin = this.editor.plugins.get('Users');
-						const commentsRepositoryPlugin = this.editor.plugins.get('CommentsRepository');
+                    init() {
+                        const usersPlugin = this.editor.plugins.get('Users');
+                        const commentsRepositoryPlugin = this.editor.plugins.get('CommentsRepository');
 
+                        // Load the users data.
+                        for (const user of appData.users) {
+                            usersPlugin.addUser(user);
+                        }
 
+                        // Set the current user.
+                        usersPlugin.defineMe(appData.userId);
 
-						// Set the current user.
-
-						// Load the comment threads data.
-						for (const commentThread of appData.commentThreads) {
-							commentsRepositoryPlugin.addCommentThread(commentThread);
-						}
-					}
-				},
+                        // Load the comment threads data.
+                        for (const commentThread of appData.commentThreads) {
+                            commentsRepositoryPlugin.addCommentThread(commentThread);
+                        }
+                    }
+                },
 
 				class CustomCommentsArchiveUI {
 					static get requires() {
@@ -168,10 +258,11 @@ DecoupledEditor
                     init() {
                         const usersPlugin = this.editor.plugins.get('Users');
                         const commentsRepositoryPlugin = this.editor.plugins.get('CommentsRepository');
-                        for (const user of appData.users) {
-                            usersPlugin.addUser(user);
-                        }
-                        usersPlugin.defineMe(appData.userId);
+
+                        //for (const user of appData.users) {
+                        //    usersPlugin.addUser(user);
+                        //}
+                        //usersPlugin.defineMe(appData.userId);
 
                         commentsRepositoryPlugin.adapter = {
                             addComment(data) {
@@ -245,7 +336,26 @@ DecoupledEditor
                                             "value": "UNITED "
                                         },
                                     "attributes": {},
-                                }
+                                },
+                                    {
+                                        "threadId": "ea9c98c9319d4247351706bc8556fc411",
+                                        "comments": [
+                                            {
+                                                "commentId": "e13d29d49f9cb16feee38c5c0996f5cf2",
+                                                "content": "<p>121</p>",
+                                                "createdAt": "2023-11-24T11:10:53.021Z",
+                                                "authorId": "user-1",
+                                                "attributes": {}
+                                            }
+                                        ],
+                                        "resolvedAt": null,
+                                        "resolvedBy": null,
+                                        "context": {
+                                            "type": "text",
+                                            "value": "UNITED "
+                                        },
+                                        "attributes": {}
+                                    }
                                 
                                 );
                             },
@@ -267,7 +377,6 @@ DecoupledEditor
                                 console.log('Comment thread reopened', data);
                                 return Promise.resolve();
                             },
-
 
                             removeCommentThread(data) {
                                 console.log('Comment thread removed', data);
@@ -916,8 +1025,8 @@ DecoupledEditor
 			handleSaveButton(editor)
 			document.querySelector( '.document-editor__toolbar' ).appendChild( editor.ui.view.toolbar.element );
 			document.querySelector('.ck-toolbar').classList.add('ck-reset_all');
+            const commentsRepository = editor.plugins.get('CommentsRepository');
 
-			const commentsRepository = editor.plugins.get('CommentsRepository');
 			document.querySelector('#get-data').addEventListener('click', () => {
 				const editorData = editor.data.get();
 				const commentThreadsData = commentsRepository.getCommentThreads({
@@ -925,7 +1034,7 @@ DecoupledEditor
 					skipEmpty: true,
 					toJSON: true
 				});
-				console.log(editorData);
+                console.log(commentsRepository);
 				console.log(commentThreadsData);
 			});
 		})
@@ -974,48 +1083,8 @@ const exportPdfConfig = {
     }
 }
 
-const appData = {
-    users: [
-        {
-            id: 'user-1',
-            name: 'Dinesh'
-        },
-        {
-            id: 'user-2',
-            name: 'Zee Croce'
-        }
-    ],
-
-    userId: 'user-1',
-
-    // Comment threads data.
-    commentThreads: [
-
-    ]
-
-};
-
-// script.js
-document.addEventListener('DOMContentLoaded', function () {
-    fetch('https://localhost:7087/api/CompanyList/GetCompany')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Product details:', data);
-        })
-        .catch(error => {
-            console.error('Error getting product details:', error);
-        });
-});
 
 
-function myFunction() {
-    alert("Page is loaded");
-}
 
 
 

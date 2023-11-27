@@ -37,6 +37,7 @@ namespace ckeditor_main.Controllers
 			catch (Exception ex)
 			{
 				TempData["errorMessage"] = ex.Message;
+				
 				return View();
 			}
 		}
