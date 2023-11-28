@@ -3,60 +3,62 @@
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
-import { DecoupledEditor } from '@ckeditor/ckeditor5-editor-decoupled';
+import { ClassicEditor } from '@ckeditor/ckeditor5-editor-classic';
 
-import { Alignment } from '@ckeditor/ckeditor5-alignment';
 import { Autoformat } from '@ckeditor/ckeditor5-autoformat';
-import { Bold, Italic, Strikethrough, Underline } from '@ckeditor/ckeditor5-basic-styles';
+import { Bold, Italic } from '@ckeditor/ckeditor5-basic-styles';
 import { BlockQuote } from '@ckeditor/ckeditor5-block-quote';
 import { CKBox } from '@ckeditor/ckeditor5-ckbox';
-import { Template } from '@ckeditor/ckeditor5-template';
 import { CloudServices } from '@ckeditor/ckeditor5-cloud-services';
 import { Comments } from '@ckeditor/ckeditor5-comments';
+import { Plugin, type EditorConfig } from '@ckeditor/ckeditor5-core';
 import { Essentials } from '@ckeditor/ckeditor5-essentials';
-import { FontBackgroundColor, FontColor, FontFamily, FontSize } from '@ckeditor/ckeditor5-font';
 import { Heading } from '@ckeditor/ckeditor5-heading';
-import { SourceEditing } from '@ckeditor/ckeditor5-source-editing';
-import { Markdown } from '@ckeditor/ckeditor5-markdown-gfm';
-import { FullPage } from '@ckeditor/ckeditor5-html-support';
-import { ExportPdf } from '@ckeditor/ckeditor5-export-pdf';
-
-
 import {
 	Image,
 	ImageCaption,
-	ImageResize,
 	ImageStyle,
 	ImageToolbar,
 	ImageUpload,
 	PictureEditing
 } from '@ckeditor/ckeditor5-image';
-import { Indent, IndentBlock } from '@ckeditor/ckeditor5-indent';
+import { Indent } from '@ckeditor/ckeditor5-indent';
 import { Link } from '@ckeditor/ckeditor5-link';
-import { List, ListProperties, TodoList } from '@ckeditor/ckeditor5-list';
+import { List } from '@ckeditor/ckeditor5-list';
 import { MediaEmbed } from '@ckeditor/ckeditor5-media-embed';
 import { Paragraph } from '@ckeditor/ckeditor5-paragraph';
 import { PasteFromOffice } from '@ckeditor/ckeditor5-paste-from-office';
-import {
-	Table,
-	TableCellProperties,
-	TableProperties,
-	TableToolbar
-} from '@ckeditor/ckeditor5-table';
+import { RevisionHistory } from '@ckeditor/ckeditor5-revision-history';
+import type { RevisionData } from '@ckeditor/ckeditor5-revision-history/src/revision';
+import { Table, TableToolbar } from '@ckeditor/ckeditor5-table';
+import { TrackChanges, TrackChangesData } from '@ckeditor/ckeditor5-track-changes';
 import { TextTransformation } from '@ckeditor/ckeditor5-typing';
+
+export class RevisionHistoryAdapter extends Plugin {
+	public static get requires(): Array<string> {
+		return [ 'RevisionHistory' ];
+	}
+
+	public init(): void {
+		const revisionHistory = this.editor.plugins.get( 'RevisionHistory' ) as RevisionHistory;
+		const revisions: Array<RevisionData> = [];
+
+		revisionHistory.adapter = {
+			getRevision: async ( { revisionId } ) => {
+				return revisions.find( data => data.id == revisionId ) || {};
+			},
+			updateRevisions: async revisionsData => {
+				return revisions.splice( 0, revisions.length, ...revisionsData );
+			}
+		};
+	}
+}
 
 // You can read more about extending the build with additional plugins in the "Installing plugins" guide.
 // See https://ckeditor.com/docs/ckeditor5/latest/installation/plugins/installing-plugins.html for details.
 
-class Editor extends DecoupledEditor {
+class Editor extends ClassicEditor {
 	public static override builtinPlugins = [
-		Bold,
-		ExportPdf,
-		Markdown,
-		FullPage,
-		SourceEditing,
-		Alignment,
-		Template,
 		Autoformat,
 		BlockQuote,
 		Bold,
@@ -64,79 +66,59 @@ class Editor extends DecoupledEditor {
 		CloudServices,
 		Comments,
 		Essentials,
-		FontBackgroundColor,
-		FontColor,
-		FontFamily,
-		FontSize,
 		Heading,
 		Image,
 		ImageCaption,
-		ImageResize,
 		ImageStyle,
 		ImageToolbar,
 		ImageUpload,
 		Indent,
-		IndentBlock,
 		Italic,
 		Link,
 		List,
-		ListProperties,
 		MediaEmbed,
 		Paragraph,
 		PasteFromOffice,
 		PictureEditing,
-		Strikethrough,
+		RevisionHistory,
+		RevisionHistoryAdapter,
 		Table,
-		TableCellProperties,
-		TableProperties,
 		TableToolbar,
 		TextTransformation,
-		TodoList,
-		Underline
+		TrackChanges,
+		TrackChangesData
 	];
 
-	public static override defaultConfig = {
+	public static override defaultConfig: EditorConfig = {
 		toolbar: {
 			items: [
-				'exportPdf',
-				'sourceEditing',
 				'heading',
 				'|',
-				'ckbox',
-				'comment',
-				'commentsArchive',
-				'|',
-				'fontColor',
-				'fontFamily',
-				'fontSize',
-				'fontBackgroundColor',
-				'|',
-				'alignment',
-				'|',
-				'numberedList',
+				'bold',
+				'italic',
+				'link',
 				'bulletedList',
+				'numberedList',
 				'|',
 				'outdent',
 				'indent',
-				'todoList',
+				'|',
+				'imageUpload',
+				'blockQuote',
+				'insertTable',
+				'mediaEmbed',
+				'ckbox',
 				'|',
 				'undo',
 				'redo',
 				'|',
-				'bold',
-				'italic',
-				'underline',
-				'strikethrough',
-				'link',
-				'blockQuote',
-				'insertTemplate',
+				'revisionHistory',
+				'trackChanges',
 				'|',
-				'imageUpload',
-				'insertTable',
-				'mediaEmbed',
+				'comment',
+				'commentsArchive',
 				'|'
-			],
-			shouldNotGroupWhenFull: true
+			]
 		},
 		language: 'en',
 		image: {
@@ -153,9 +135,7 @@ class Editor extends DecoupledEditor {
 			contentToolbar: [
 				'tableColumn',
 				'tableRow',
-				'mergeTableCells',
-				'tableCellProperties',
-				'tableProperties'
+				'mergeTableCells'
 			],
 			tableToolbar: [
 				'comment'
@@ -170,10 +150,8 @@ class Editor extends DecoupledEditor {
 					List
 				]
 			}
-		},
-
-
-	}
+		}
+	};
 }
 
 export default Editor;

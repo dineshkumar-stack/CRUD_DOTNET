@@ -1,4 +1,3 @@
-using NToastNotify;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,11 +18,7 @@ builder.Services.AddCors(options =>
                           .AllowAnyHeader());
 });
 
-builder.Services.AddRazorPages().AddNToastNotifyNoty(new NotyOptions
-{
-	ProgressBar = true,
-	Timeout = 5000
-});
+
 
 
 
@@ -45,8 +40,6 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 app.UseCors("AllowSpecificOrigin");
-app.UseNToastNotify();
-app.MapRazorPages();
 app.UseAuthorization();
 
 app.MapControllerRoute(
