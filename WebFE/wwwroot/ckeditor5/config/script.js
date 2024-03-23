@@ -1,9 +1,7 @@
-ClassicEditor
-	.create(document.querySelector('.editor'), {
+ClassicEditor.create(document.querySelector('.editor'), {
 
-		cloudServices: {
-			tokenUrl: 'https://example.com/cs-token-endpoint'
-		},
+
+
 
 		//Font size Added
 		fontSize: {
